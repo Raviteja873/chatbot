@@ -1,8 +1,8 @@
-Flask==2.0.1
+Flask==2.2.5
+Werkzeug==2.2.3
 Flask-Bcrypt==1.0.1
 Flask-SQLAlchemy==2.5.1
-SQLAlchemy==1.4.53
 requests==2.25.1
 python-dotenv==0.17.1
-groq
+groq==1.0.0
 gunicorn
