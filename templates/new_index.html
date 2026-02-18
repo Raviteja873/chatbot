@@ -224,11 +224,20 @@
                     }
 
                     if (data.image_url) {
+                        const imageWrapper = document.createElement('div');
+                        imageWrapper.classList.add('message', 'bot');
+
                         const img = document.createElement('img');
-                        img.src = data.image_url;
+                         img.src = data.image_url;
                         img.alt = 'Generated Image';
                         img.className = 'message-image';
-                        messages.appendChild(img);
+
+                        imageWrapper.appendChild(img);
+                        messages.appendChild(imageWrapper);
+
+                         messages.scrollTop = messages.scrollHeight;
+
+                    
                     }
                     if (data.video_url) {
                         const a = document.createElement('a');
