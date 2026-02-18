@@ -164,7 +164,7 @@ class OTP(db.Model):
 # -----------------------------
 @app.route("/")
 def home():
-    return "Backend is running successfully"   # ✅ CHANGED (safe home route)
+    return redirect(url_for("login"))
 
 
 @app.route("/dashboard")
