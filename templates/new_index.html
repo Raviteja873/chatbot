@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat with our BotFriend</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #74ebd5 0%, #9face6 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #chat-box {
+            width: 90%;
+            height: 90%;
+            background-color: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        #header {
+            padding: 15px 20px;
+            background-color: #34495e;
+            color: #ecf0f1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        #messages {
+            flex: 1;
+            padding: 30px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            background: #f9f9f9;
+        }
+        .message {
+            padding: 20px;
+            border-radius: 15px;
+            max-width: 70%;
+            word-wrap: break-word;
+        }
+        .message.user {
+            align-self: flex-start;
+            background-color: #3498db;
+            color: #fff;
+            border-top-left-radius: 0;
+        }
+        .message.bot {
+            align-self: flex-end;
+            background-color: #e74c3c;
+            color: #fff;
+            border-top-right-radius: 0;
+        }
+        #user-input {
+            display: flex;
+            padding: 30px;
+            background-color: #34495e;
+        }
+        #user-input input {
+            flex: 1;
+            padding: 18px;
+            font-size: 16px;
+            border: none;
+            border-radius: 10px;
+            margin-right: 8px;
+            outline: none;
+        }
+        #user-input button {
+            padding: 18px 20px;
+            font-size: 14px;
+            background-color: #1abc9c;
+            color: #ecf0f1;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-left: 5px;
+            min-width: 80px;
+            white-space: nowrap;
+            font-weight: 500;
+            height: 52px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #user-input button:hover {
+            background-color: #16a085;
+        }
+        #user-input button.image-toggle {
+            background-color: #ccc;
+            color: #333;
+            font-size: 12px;
+            padding: 18px 12px;
+            min-width: 100px;
+            max-width: 120px;
+        }
+        #user-input button.image-toggle.active {
+            background-color: #1abc9c;
+            color: #ecf0f1;
+        }
+        #user-input button.image-toggle:hover {
+            background-color: #16a085;
+            color: #ecf0f1;
+        }
+        #user-input button:last-child {
+            font-size: 18px;
+            padding: 18px;
+            min-width: 52px;
+            max-width: 52px;
+        }
+        #logout-link {
+            color: #ecf0f1;
+            text-decoration: none;
+        }
+
+        .message-image {
+            max-width: 300px;
+            max-height: 200px;
+            width: auto;
+            height: auto;
+            border-radius: 10px;
+            border: 2px solid #34495e;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin-top: 10px;
+            object-fit: contain;
+            display: block;
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <div id="chat-box">
+        <div id="header">
+            <div>Chat with BotFriend</div>
+            <div>
+                <a id="logout-link" href="/logout">Logout</a>
+            </div>
+        </div>
+        <div id="messages"></div>
+        <div id="user-input">
+            <input type="text" id="message-input" placeholder="Type a message." />
+            <button onclick="sendMessage()">Send</button>
+            <button id="image-toggle-btn" class="image-toggle" onclick="toggleImageGeneration()">Image Disabled</button>
+            <button onclick="startVoiceRecognition()">🎤</button>
+        </div>
+    </div>
+    <script>
+        const messages = document.getElementById('messages');
+        let imageGenerationEnabled = false;
+
+        document.getElementById('message-input').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        function toggleImageGeneration() {
+            const toggleBtn = document.getElementById('image-toggle-btn');
+            imageGenerationEnabled = !imageGenerationEnabled;
+            
+            if (imageGenerationEnabled) {
+                toggleBtn.textContent = 'Image Enabled';
+                toggleBtn.classList.add('active');
+            } else {
+                toggleBtn.textContent = 'Image Disabled';
+                toggleBtn.classList.remove('active');
+            }
+        }
+
+        function addMessage(sender, message) {
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('message', sender === 'You' ? 'user' : 'bot');
+            messageElement.textContent = message;
+            messages.appendChild(messageElement);
+            messages.scrollTop = messages.scrollHeight;
+        }
+
+        function sendMessage() {
+            const messageInput = document.getElementById('message-input');
+            const userMessage = messageInput.value;
+            if (userMessage.trim() === '') return;
+
+            // Stop any ongoing voice immediately
+            speechSynthesis.cancel();
+
+            addMessage('You', userMessage);
+            messageInput.value = '';
+
+            fetch('/chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ message: userMessage, generate_image: imageGenerationEnabled }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.message) {
+                    addMessage('Bot', data.message);
+                    
+                    // Only speak if it's not an end conversation message
+                    if (!data.end_conversation) {
+                        speakOutLoud(data.message);
+                    }
+
+                    // Check if conversation should end
+                    if (data.end_conversation) {
+                        // Only redirect if should_redirect is true (only for 'exit')
+                        if (data.should_redirect) {
+                            // Redirect to login page after a short delay
+                            setTimeout(() => {
+                                window.location.href = '/login';
+                            }, 2000); // 2 second delay to read the goodbye message
+                        }
+                        return; // Stop processing further
+                    }
+
+                    if (data.image_url) {
+                        const img = document.createElement('img');
+                        img.src = data.image_url;
+                        img.alt = 'Generated Image';
+                        img.className = 'message-image';
+                        messages.appendChild(img);
+                    }
+                    if (data.video_url) {
+                        const a = document.createElement('a');
+                        a.href = data.video_url;
+                        a.textContent = 'Watch Video';
+                        a.target = '_blank';
+                        a.style.display = 'block';
+                        messages.appendChild(a);
+                    }
+                } else if (data.error) {
+                    addMessage('Bot', 'Error: ' + data.error);
+                } else {
+                    addMessage('Bot', 'Error: Unable to get a response.');
+                }
+            })
+            .catch(error => {
+                addMessage('Bot', 'Error: Unable to get a response.');
+                console.error('Error:', error);
+            });
+        }
+
+        function startVoiceRecognition() {
+            if (!('webkitSpeechRecognition' in window)) {
+                alert('Sorry, your browser does not support speech recognition.');
+                return;
+            }
+
+            const recognition = new webkitSpeechRecognition();
+            recognition.lang = 'en-US';
+            recognition.interimResults = false;
+            recognition.maxAlternatives = 1;
+
+            recognition.onresult = function(event) {
+                const userMessage = event.results[0][0].transcript;
+                document.getElementById('message-input').value = userMessage;
+                sendMessage();
+            };
+
+            recognition.onerror = function(event) {
+                console.error('Error occurred in recognition: ', event.error);
+            };
+
+            recognition.start();
+        }
+
+        function speakOutLoud(text) {
+            // Stop any ongoing speech
+            speechSynthesis.cancel();
+            
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'en-US';
+            speechSynthesis.speak(utterance);
+        }
+
+        function stopVoice() {
+            speechSynthesis.cancel();
+        }
+
+        // Initial greeting
+        addMessage('Bot', "Hello! Let's chat.\nYou can type 'bye', 'exit', or 'end' to stop the conversation.");
+    </script>
+</body>
+</html>

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(120deg, #6a11cb, #2575fc);
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        #register-box {
+            width: 360px;
+            padding: 30px;
+            background: #ffffff10;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+            text-align: center;
+            animation: slideUp 0.8s ease;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        h2 {
+            margin-bottom: 18px;
+            color: #fff;
+            letter-spacing: 1px;
+        }
+
+        #register-box input {
+            width: 100%;
+            margin: 10px 0;
+            padding: 13px;
+            font-size: 15px;
+            border-radius: 8px;
+            border: none;
+            outline: none;
+            background: #ffffffcc;
+            transition: 0.3s;
+        }
+
+        #register-box input:focus {
+            box-shadow: 0 0 8px #ffffffcc;
+        }
+
+        #register-box button {
+            width: 100%;
+            padding: 13px;
+            font-size: 16px;
+            margin-top: 10px;
+            background: #00d4ff;
+            color: #000;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s ease-in-out;
+        }
+
+        #register-box button:hover {
+            transform: scale(1.03);
+            background: #fff;
+            color: #000;
+        }
+
+        #register-box a {
+            display: block;
+            margin-top: 15px;
+            color: #ffffffdd;
+            font-size: 14px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        #register-box a:hover {
+            color: #ffffff;
+        }
+
+        .error {
+            color: #ff4b5c;
+            background: #ffffffdd;
+            padding: 8px;
+            font-size: 14px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+        }
+
+        .password-error {
+            color: #ff4b5c;
+            background: #ffffffdd;
+            padding: 6px;
+            font-size: 12px;
+            border-radius: 4px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            text-align: left;
+        }
+
+        .password-error ul {
+            margin: 5px 0;
+            padding-left: 20px;
+        }
+
+        .password-error li {
+            margin: 2px 0;
+        }
+
+        .password-container {
+            position: relative;
+            width: 100%;
+            margin: 10px 0;
+        }
+
+        .password-container input {
+            width: 100%;
+            padding: 13px;
+            padding-right: 45px;
+            font-size: 15px;
+            border-radius: 8px;
+            border: none;
+            outline: none;
+            background: #ffffffcc;
+            transition: 0.3s;
+            box-sizing: border-box;
+        }
+
+        .password-container input:focus {
+            box-shadow: 0 0 8px #ffffffcc;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-size: 18px;
+            color: #666;
+            user-select: none;
+            transition: color 0.3s;
+        }
+
+        .password-toggle:hover {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div id="register-box">
+        <h2>Register</h2>
+
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
+
+        <form action="/register" method="post">
+            <input type="text" name="username" placeholder="Username" value="{{ username or '' }}" required>
+            <input type="email" name="email" placeholder="Email" value="{{ email or '' }}" required>
+            <div class="password-container">
+                <input type="password" name="password" id="register-password" placeholder="Password" required>
+                <span class="password-toggle" onclick="togglePassword('register-password', this)">👁️</span>
+            </div>
+            
+            {% if password_errors %}
+                <div class="password-error">
+                    <strong>Password must match these conditions:</strong>
+                    <ul>
+                        {% for reason in password_errors %}
+                            <li>{{ reason }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+            
+            <button type="submit">Register</button>
+        </form>
+        <a href="/login">Already have an account? Login</a>
+    </div>
+
+    <script>
+        function togglePassword(inputId, toggleElement) {
+            const passwordInput = document.getElementById(inputId);
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            
+            // Change the eye symbol
+            toggleElement.textContent = type === 'password' ? '👁️' : '👁️‍🗨️';
+        }
+    </script>
+</body>
+</html>

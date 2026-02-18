@@ -1,0 +1,155 @@
+| Character Type         | Count | Characters |
+| ---------------------- | ----- | ---------- |
+| **Uppercase letters**  | **4** | R, M, Q, A |
+| **Lowercase letters**  | **2** | k, p       |
+| **Numeric digits**     | **2** | 7, 9       |
+| **Special characters** | **2** | !, $       |
+
+
+
+
+1. R7!kM9$QpA
+2. Z@4Lx8#Nw2
+3. M$Q8rA!7Zx
+4. P9#Wm@L2Qk
+5. X!4A9$RkMZ
+6. Q8$Zr!M9xA
+7. @Rk7MZ9!A4
+8. L!9Q$ZkA7M
+9. A7$!ZQ9MxR
+10. KZ!9R$A7Mx
+11. W4$Z!M9QxR
+12. 9A!Zx$R7MQ
+13. RZ9!A$QxM7
+14. MZ7Q!$9ARx
+15. Q!R7Z$M9Ax
+16. xA$Z9!R7QM
+17. 7M!Z$Q9ARx
+18. Z!9R7x$AQM
+19. QZ$7A!9MRx
+20. !RZQ7$9AxM
+21. A$9!MZRxQ7
+22. ZQ!7$RM9Ax
+23. 7!A$QZ9xMR
+24. M9$Z!QRA7x
+25. R!QZ$M9A7x
+26. Q7A$!ZMR9x
+27. Z9M!$R7AQx
+28. A!7Q$ZMxR9
+29. xM$9!RZQA7
+30. !ZQ7R$A9Mx
+sample passwords
+
+ANIMALS (LAND MAMMALS)
+1. Snow leopard
+2. Red panda
+3. Maned wolf
+4. Saiga antelope
+5. Okapi
+6. Binturong
+7. Pangolin
+8. Aardwolf
+9. Tasmanian devil
+10. Iberian lynx
+11. Serval cat
+12. Caracal
+13. Fennec fox
+14. Arctic fox
+15. Wolverine
+16. Musk ox
+17. Przewalski horse
+18. Dhole wild dog
+19. Golden takin
+20. Nubian ibex
+
+BIRDS
+21. Secretary bird
+22. Shoebill stork
+23. Resplendent quetzal
+24. Harpy eagle
+25. Great hornbill
+26. Scarlet macaw
+27. Andean condor
+28. Lilac breasted roller
+29. Kingfisher bird
+30. Hoopoe bird
+31. Sun conure
+32. Toco toucan
+33. Himalayan monal
+34. Snowy owl
+35. African grey parrot
+36. Puffin bird
+37. Blue jay bird
+38. Golden pheasant
+39. Spoonbill bird
+40. Cassowary
+
+FISH & MARINE LIFE
+41. Lionfish
+42. Mandarin fish
+43. Clownfish
+44. Betta fish
+45. Seahorse
+46. Leafy seadragon
+47. Whale shark
+48. Manta ray
+49. Moray eel
+50. Pufferfish
+51. Blue tang fish
+52. Angelfish
+53. Koi fish
+54. Arowana
+55. Sailfish
+56. Hammerhead shark
+57. Stingray
+58. Triggerfish
+59. Barracuda
+60. Parrotfish
+
+REPTILES & AMPHIBIANS
+61. Komodo dragon
+62. Green tree python
+63. King cobra
+64. Chameleon reptile
+65. Frilled lizard
+66. Gila monster
+67. Axolotl
+68. Poison dart frog
+69. Red eyed tree frog
+70. Alligator snapping turtle
+
+INSECTS & ARTHROPODS
+71. Atlas moth
+72. Blue morpho butterfly
+73. Orchid mantis
+74. Hercules beetle
+75. Luna moth
+76. Glasswing butterfly
+77. Jewel beetle
+78. Peacock spider
+79. Stick insect
+80. Firefly insect
+
+OCEAN / NATURE EXTRAS
+81. Nautilus shell
+82. Coral reef fish
+83. Sea anemone
+84. Starfish close up
+85. Jellyfish underwater
+86. Horseshoe crab
+87. Giant clam
+88. Sea slug nudibranch
+89. Octopus underwater
+90. Squid deep sea
+
+CONTEXT BOOSTERS
+91. Wildlife portrait
+92. Animal in natural habitat
+93. Bird in flight
+94. Underwater marine life
+95. Rainforest wildlife
+96. Desert animal
+97. Arctic wildlife
+98. Savanna animal
+99. Jungle bird
+100. Macro nature photography
