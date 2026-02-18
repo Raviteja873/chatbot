@@ -5,3 +5,4 @@ SQLAlchemy==1.4.53
 requests==2.25.1
 python-dotenv==0.17.1
 groq
+gunicorn
